@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PopCat", "PopCat.csproj", "{B807D45D-ADC0-4669-8815-12050BF72FF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B807D45D-ADC0-4669-8815-12050BF72FF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B807D45D-ADC0-4669-8815-12050BF72FF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B807D45D-ADC0-4669-8815-12050BF72FF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B807D45D-ADC0-4669-8815-12050BF72FF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
