@@ -10,7 +10,13 @@ namespace PopCat
 
         public void Start()
         {
-            new CoreAudioController().DefaultPlaybackDevice.VolumeChanged.Subscribe(e =>
+            var playbackDevice = new CoreAudioController().DefaultPlaybackDevice;
+            playbackDevice.MuteChanged.Subscribe(e =>
+                OnVolumeLevelChange?.Invoke(this,
+                    new VolumeLevelEventArgs {Level = e.IsMuted ? 0 : (int) e.Device.Volume})
+            );
+
+            playbackDevice.VolumeChanged.Subscribe(e => 
                 OnVolumeLevelChange?.Invoke(this, new VolumeLevelEventArgs {Level = (int) e.Volume})
             );
         }
