@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:PopCat"
         mc:Ignorable="d"
         Height="400" Width="400"
         WindowStyle="None"
@@ -13,20 +12,22 @@
         ShowInTaskbar="False"
         Loaded="PopCatWindow_OnLoaded"
         Unloaded="PopCatWindow_OnUnloaded">
+    <!-- Resources are accessed programatically -->
+    <!-- ReSharper disable Xaml.RedundantResource -->
     <Window.Resources>
-        <BitmapImage x:Key="0" UriSource="Resources/0.png" />
-        <BitmapImage x:Key="1" UriSource="Resources/1.png" />
-        <BitmapImage x:Key="2" UriSource="Resources/2.png" />
-        <BitmapImage x:Key="3" UriSource="Resources/3.png" />
-        <BitmapImage x:Key="4" UriSource="Resources/4.png" />
-        <BitmapImage x:Key="5" UriSource="Resources/5.png" />
+        <BitmapImage x:Key="0" UriSource="Cats/0.png" />
+        <BitmapImage x:Key="1" UriSource="Cats/1.png" />
+        <BitmapImage x:Key="2" UriSource="Cats/2.png" />
+        <BitmapImage x:Key="3" UriSource="Cats/3.png" />
+        <BitmapImage x:Key="4" UriSource="Cats/4.png" />
+        <BitmapImage x:Key="5" UriSource="Cats/5.png" />
     </Window.Resources>
 
     <Window.Background>
         <SolidColorBrush Opacity="0.94" Color="#101010" />
     </Window.Background>
 
-    <Grid>
-        <Image x:Name="Image" Source="{StaticResource 0}" Margin="10" />
-    </Grid>
+    <!-- Control is accessed programatically -->
+    <!-- ReSharper disable once UnusedMember.Global -->
+    <Image x:Name="Image" Source="{StaticResource 0}" Margin="10" />
 </Window>

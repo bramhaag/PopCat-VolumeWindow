@@ -19,7 +19,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Resources\*">
+        <Content Include="Cats\*">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </Content>
     </ItemGroup>
@@ -28,12 +28,6 @@
       <Reference Include="System.Windows.Forms, Version=5.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
         <HintPath>bin\Release\net5.0-windows\win10-x64\System.Windows.Forms.dll</HintPath>
       </Reference>
-    </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="cat.ico">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
     </ItemGroup>
 
 </Project>

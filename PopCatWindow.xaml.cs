@@ -70,7 +70,7 @@ namespace PopCat
         {
             _volumeKeyListener.UnHook();
             _windowResizeListener.Stop();
-            
+
             _notifyIcon.Visible = false;
             _notifyIcon.Icon.Dispose();
             _notifyIcon.Dispose();
@@ -125,8 +125,8 @@ namespace PopCat
         {
             var menu = new ContextMenuStrip();
             menu.Items.Add("Exit", null, (_, _) => { Application.Current.Shutdown(); });
-
-            return new NotifyIcon {Icon = new Icon("cat.ico"), Visible = true, ContextMenuStrip = menu};
+            
+            return new NotifyIcon {Icon = new Icon("Cats/tray.ico"), Visible = true, ContextMenuStrip = menu};
         }
     }
 }
