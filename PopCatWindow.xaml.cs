@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Drawing;
 using System.Threading;
 using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Media;
 using Application = System.Windows.Application;
 using Image = System.Windows.Controls.Image;
@@ -16,8 +14,6 @@ namespace PopCat
         private VolumeKeyListener _volumeKeyListener;
         private WindowResizeListener _windowResizeListener;
         private VolumeLevelListener _volumeLevelListener;
-
-        private NotifyIcon _notifyIcon;
 
         private readonly IntPtr _hWnd;
 
@@ -61,8 +57,6 @@ namespace PopCat
 
             ResizeVolumeOsd(x, y, width, height);
 
-            _notifyIcon = CreateTrayIcon();
-
             Debug.WriteLine("Loaded window");
         }
 
@@ -71,11 +65,12 @@ namespace PopCat
             _volumeKeyListener.UnHook();
             _windowResizeListener.Stop();
 
-            _notifyIcon.Visible = false;
-            _notifyIcon.Icon.Dispose();
-            _notifyIcon.Dispose();
-
             Debug.WriteLine("Unloaded window");
+        }
+
+        private void MenuItem_Exit_OnClick(object sender, RoutedEventArgs e)
+        {
+            Application.Current.Shutdown();
         }
 
         private void OnVolumeKeyPress()
@@ -119,14 +114,6 @@ namespace PopCat
                 Left = x + width;
                 Top = y;
             });
-        }
-
-        private static NotifyIcon CreateTrayIcon()
-        {
-            var menu = new ContextMenuStrip();
-            menu.Items.Add("Exit", null, (_, _) => { Application.Current.Shutdown(); });
-            
-            return new NotifyIcon {Icon = new Icon("Cats/tray.ico"), Visible = true, ContextMenuStrip = menu};
         }
     }
 }

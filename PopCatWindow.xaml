@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
         mc:Ignorable="d"
         Height="400" Width="400"
         WindowStyle="None"
@@ -21,13 +22,26 @@
         <BitmapImage x:Key="3" UriSource="Cats/3.png" />
         <BitmapImage x:Key="4" UriSource="Cats/4.png" />
         <BitmapImage x:Key="5" UriSource="Cats/5.png" />
+        <BitmapImage x:Key="TrayIcon" UriSource="Cats/tray.ico" />
     </Window.Resources>
 
     <Window.Background>
         <SolidColorBrush Opacity="0.94" Color="#101010" />
     </Window.Background>
 
-    <!-- Control is accessed programatically -->
-    <!-- ReSharper disable once UnusedMember.Global -->
-    <Image x:Name="Image" Source="{StaticResource 0}" Margin="10" />
+    <Grid>
+        <tb:TaskbarIcon Visibility="Visible"
+                        IconSource="{StaticResource TrayIcon}"
+                        MenuActivation="RightClick">
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Exit" Click="MenuItem_Exit_OnClick" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        
+        <!-- Control is accessed programatically -->
+        <!-- ReSharper disable once UnusedMember.Global -->
+        <Image x:Name="Image" Source="{StaticResource 0}" Margin="10" />
+    </Grid>
 </Window>

@@ -13,21 +13,13 @@
     <ItemGroup>
       <PackageReference Include="AudioSwitcher.AudioApi" Version="4.0.0-alpha5" />
       <PackageReference Include="AudioSwitcher.AudioApi.CoreAudio" Version="4.0.0-alpha5" />
+      <PackageReference Include="Hardcodet.NotifyIcon.Wpf.NetCore" Version="1.0.18" />
       <PackageReference Include="PInvoke.Kernel32" Version="0.7.78" />
       <PackageReference Include="PInvoke.User32" Version="0.7.78" />
-      <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
     </ItemGroup>
 
     <ItemGroup>
-        <Content Include="Cats\*">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
+        <None Remove="**\*.png;**\*.ico" />
+        <Resource Include="**\*.png;**\*.ico" />
     </ItemGroup>
-
-    <ItemGroup>
-      <Reference Include="System.Windows.Forms, Version=5.0.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-        <HintPath>bin\Release\net5.0-windows\win10-x64\System.Windows.Forms.dll</HintPath>
-      </Reference>
-    </ItemGroup>
-
 </Project>

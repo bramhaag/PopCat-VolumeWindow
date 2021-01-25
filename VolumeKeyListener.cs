@@ -35,9 +35,9 @@ namespace PopCat
         {
             using var curProcess = Process.GetCurrentProcess();
             using var curModule = curProcess.MainModule;
-
+            
             var moduleHandle = Kernel32.GetModuleHandle(curModule?.ModuleName);
-
+            
             return User32.SetWindowsHookEx(User32.WindowsHookType.WH_KEYBOARD_LL, proc,
                 moduleHandle.DangerousGetHandle(), 0);
         }
