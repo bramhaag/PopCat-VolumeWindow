@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Drawing;
 using System.Threading;
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Forms;
 using System.Windows.Media;
+using Application = System.Windows.Application;
+using Image = System.Windows.Controls.Image;
+using Timer = System.Threading.Timer;
 
 namespace PopCat
 {
@@ -12,11 +16,13 @@ namespace PopCat
         private VolumeKeyListener _volumeKeyListener;
         private WindowResizeListener _windowResizeListener;
         private VolumeLevelListener _volumeLevelListener;
-        
+
+        private NotifyIcon _notifyIcon;
+
         private readonly IntPtr _hWnd;
 
         private readonly Timer _hideTimer;
-        
+
         public PopCatWindow()
         {
             InitializeComponent();
@@ -28,9 +34,9 @@ namespace PopCat
                 Application.Current.Shutdown();
                 return;
             }
-            
+
             Debug.WriteLine("Found window: " + _hWnd);
-            
+
             _hideTimer = new Timer(_ => ShowWindow(false));
         }
 
@@ -46,15 +52,17 @@ namespace PopCat
 
             _volumeLevelListener = new VolumeLevelListener();
             _volumeLevelListener.OnVolumeLevelChange += OnVolumeLevelChange;
-            _volumeLevelListener.Start();  
-            
+            _volumeLevelListener.Start();
+
             ShowWindow(false);
 
             var (x, y) = Win32Utils.GetWindowPosition(_hWnd);
             var (width, height) = Win32Utils.GetWindowDimensions(_hWnd);
-            
+
             ResizeVolumeOsd(x, y, width, height);
-            
+
+            _notifyIcon = CreateTrayIcon();
+
             Debug.WriteLine("Loaded window");
         }
 
@@ -63,33 +71,37 @@ namespace PopCat
             _volumeKeyListener.UnHook();
             _windowResizeListener.Stop();
             
+            _notifyIcon.Visible = false;
+            _notifyIcon.Icon.Dispose();
+            _notifyIcon.Dispose();
+
             Debug.WriteLine("Unloaded window");
         }
-        
+
         private void OnVolumeKeyPress()
         {
             ShowWindow(true);
             _hideTimer.Change(TimeSpan.FromSeconds(3), Timeout.InfiniteTimeSpan);
-            
+
             Debug.WriteLine("Volume key pressed");
         }
-        
+
         private void OnVolumeOSDResize(object sender, WindowResizeListener.WindowResizeEventArgs e)
         {
             ResizeVolumeOsd(e.X, e.Y, e.Width, e.Height);
-            
+
             Debug.WriteLine("OSD resized");
         }
-        
+
         private void OnVolumeLevelChange(object sender, VolumeLevelListener.VolumeLevelEventArgs e)
         {
             var key = Math.Ceiling(e.Level / 20.0).ToString("0");
-            
+
             Dispatcher.Invoke(() =>
             {
                 if (FindName("Image") is Image img && FindResource(key) is ImageSource src) img.Source = src;
             });
-            
+
             Debug.WriteLine("Volume level changed");
         }
 
@@ -107,6 +119,14 @@ namespace PopCat
                 Left = x + width;
                 Top = y;
             });
+        }
+
+        private static NotifyIcon CreateTrayIcon()
+        {
+            var menu = new ContextMenuStrip();
+            menu.Items.Add("Exit", null, (_, _) => { Application.Current.Shutdown(); });
+
+            return new NotifyIcon {Icon = new Icon("cat.ico"), Visible = true, ContextMenuStrip = menu};
         }
     }
 }
