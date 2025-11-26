@@ -1,3 +1,5 @@
+### This project has moved to [Codeberg](https://codeberg.org/bramh/popcat)
+
 # PopCat Volume Window
 
 A small .NET program that adds Pop Cat to Windows' volume window. Inspired by [this project](https://github.com/bastakka/popcatindicator).
